@@ -8,6 +8,15 @@
 # Test binary, built with `go test -c`
 *.test
 
+# IDEs
+.idea
+.vscode
+
+# Hidden files
+.DS_Store
+.nvimrc
+.vimrc
+
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
