@@ -2,6 +2,7 @@ package go_asap
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"net/url"
 	"sync"
@@ -47,6 +48,22 @@ func NewContext(res http.ResponseWriter, req *http.Request) *Context {
 		Params:   params,
 		Data:     data,
 	}
+}
+
+func (ctx *Context) JSONSuccess(body interface{}) {
+	ctx.Response.Header().Set("Content-Type", "application/json")
+	ctx.Response.WriteHeader(http.StatusOK)
+
+	bytesRep, _ := json.Marshal(body)
+	_, _ = ctx.Response.Write(bytesRep)
+}
+
+func (ctx *Context) JSONError(error error, status int) {
+	ctx.Response.Header().Set("Content-Type", "application/json")
+	ctx.Response.WriteHeader(status)
+
+	bytesRep, _ := json.Marshal(error.Error())
+	_, _ = ctx.Response.Write(bytesRep)
 }
 
 func (ctx *Context) NotFound() {
