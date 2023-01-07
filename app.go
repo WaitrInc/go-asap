@@ -6,7 +6,7 @@ import (
 )
 
 type App struct {
-	Routes     router.Routes
+	Router     router.Routes
 	HttpServer asaphttp.Server
 }
 
