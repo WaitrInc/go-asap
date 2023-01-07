@@ -2,11 +2,9 @@ package go_asap
 
 import (
 	asaphttp "github.com/WaitrInc/go-asap/internal/http"
-	"github.com/WaitrInc/go-asap/internal/router"
 )
 
 type App struct {
-	Router     router.Routes
 	HttpServer asaphttp.Server
 }
 

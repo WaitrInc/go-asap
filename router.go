@@ -1,13 +1,12 @@
-package router
+package go_asap
 
 import (
-	"github.com/WaitrInc/go-asap/internal/context"
 	"net/http"
 	"path"
 	"strings"
 )
 
-type HandlerFunc func(ctx *context.Context)
+type HandlerFunc func(ctx *Context)
 
 type version struct {
 	Name      string
@@ -41,7 +40,7 @@ func init() {
 // Main entry point for each call
 func (r *Routes) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 
-	ctx := context.NewContext(w, req)
+	ctx := NewContext(w, req)
 	defer ctx.Request.Body.Close()
 	ctx.RouteInfo.Method = req.Method
 
@@ -119,7 +118,7 @@ func (r *Routes) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func (f HandlerFunc) ServeHTTP(context *context.Context) {
+func (f HandlerFunc) ServeHTTP(context *Context) {
 	f(context)
 }
 
