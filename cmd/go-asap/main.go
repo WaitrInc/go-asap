@@ -1,4 +1,4 @@
-package main
+package go_asap
 
 import (
 	asaphttp "github.com/WaitrInc/go-asap/internal/http"
