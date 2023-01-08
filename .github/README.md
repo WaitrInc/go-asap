@@ -5,7 +5,7 @@
 ## Quickstart
 ```bash
 cd your-project-directory
-curl quickstart/install.sh
+curl https://raw.githubusercontent.com/WaitrInc/go-asap/main/quickstart/install.sh -o install.sh
 sh install.sh
 make
 ```
