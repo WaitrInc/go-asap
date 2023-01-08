@@ -3,19 +3,18 @@
 </p>
 
 ## Quickstart
-
-```go
-package main
-
-import "github.com/WaitrInc/goasap"
-
-func main() {
-	println("TBD")
-}
+```bash
+cd your-project-directory
+curl quickstart/install.sh
+sh install.sh
+make
 ```
-
-## Installation
-TBD
+The following default routes should be available
+http://localhost/v1/health
+http://localhost/v1/example
+http://localhost/v1/example/123
+http://localhost/v1/example/123/subexample
+http://localhost/v1/example/123/subexample/456
 
 ## Features
 TBD
