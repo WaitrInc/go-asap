@@ -10,11 +10,11 @@ sh install.sh
 make
 ```
 The following default routes should be available
-http://localhost/v1/health
-http://localhost/v1/example
-http://localhost/v1/example/123
-http://localhost/v1/example/123/subexample
-http://localhost/v1/example/123/subexample/456
+- http://localhost/v1/health
+- http://localhost/v1/example
+- http://localhost/v1/example/123
+- http://localhost/v1/example/123/subexample
+- http://localhost/v1/example/123/subexample/456
 
 ## Features
 TBD
