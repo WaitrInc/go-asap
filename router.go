@@ -89,33 +89,30 @@ func (r *Routes) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	// Load the subresource
+	// Ensure the resource exists
+	resource, exists := Router.Map[ctx.RouteInfo.VersionName].Resources[ctx.RouteInfo.ResourceName]
+	if !exists {
+		ctx.NotFound()
+		return
+	}
+
+	// Serve the subresource if passed
 	if ctx.RouteInfo.SubresourceName != "" {
-		resource, exists := Router.Map[ctx.RouteInfo.VersionName].Resources[ctx.RouteInfo.ResourceName]
-		if !exists {
-			ctx.NotFound()
-		} else {
-			subresource, exists := resource.Subresources[ctx.RouteInfo.SubresourceName]
-			if !exists {
-				ctx.NotFound()
-			} else {
-				if ctx.RouteInfo.Method == "GET" && ctx.RouteInfo.SubresourceID == "" {
-					ctx.RouteInfo.Method = "LIST"
-				}
-				subresource.Handler.ServeHTTP(ctx)
-			}
-		}
-	} else {
-		resource, exists := Router.Map[ctx.RouteInfo.VersionName].Resources[ctx.RouteInfo.ResourceName]
-		if !exists {
-			ctx.NotFound()
-		} else {
-			if ctx.RouteInfo.Method == "GET" && ctx.RouteInfo.ResourceID == "" {
+		subresource, exists := resource.Subresources[ctx.RouteInfo.SubresourceName]
+		if exists {
+			if ctx.RouteInfo.Method == "GET" && ctx.RouteInfo.SubresourceID == "" {
 				ctx.RouteInfo.Method = "LIST"
 			}
-			resource.Handler.ServeHTTP(ctx)
+			subresource.Handler.ServeHTTP(ctx)
 		}
 	}
+
+	// Serve the resource
+	if ctx.RouteInfo.Method == "GET" && ctx.RouteInfo.ResourceID == "" {
+		ctx.RouteInfo.Method = "LIST"
+	}
+
+	resource.Handler.ServeHTTP(ctx)
 }
 
 func (f HandlerFunc) ServeHTTP(context *Context) {
