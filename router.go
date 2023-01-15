@@ -104,6 +104,8 @@ func (r *Routes) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 				ctx.RouteInfo.Method = "LIST"
 			}
 			subresource.Handler.ServeHTTP(ctx)
+
+			return
 		}
 	}
 
